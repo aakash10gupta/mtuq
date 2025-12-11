@@ -503,13 +503,15 @@ def prepare_moment_tensor_header_info(origin, mt, lune_dict, process_bw, process
     station_info = _format_station_info(N_total, N_p_used, N_s_used)
     
     # Assemble info as dataclass
+    # Only keep last part of model path for display
+    model_short = os.path.basename(os.path.normpath(model)) if isinstance(model, str) else model
     info = MomentTensorHeaderInfo(
         event_name=event_name,
         latlon=latlon,
         magnitude=magnitude,
         depth_label=depth_label,
         depth_str=depth_str,
-        model=model,
+        model=model_short,
         solver=solver,
         norm=norm_label,
         best_misfit=best_misfit,
@@ -545,13 +547,14 @@ def prepare_force_header_info(origin, force, force_dict, process_bw, process_sw,
     N_total, N_p_used, N_s_used = _station_counts(data_bw, data_sw, kwargs.get('data_sw_supp', None))
     station_info = _format_station_info(N_total, N_p_used, N_s_used)
     
+    model_short = os.path.basename(os.path.normpath(model)) if isinstance(model, str) else model
     info = ForceHeaderInfo(
         event_name=event_name,
         latlon=latlon,
         F0=F0,
         depth_label=depth_label,
         depth_str=depth_str,
-        model=model,
+        model=model_short,
         solver=solver,
         norm=norm_label,
         best_misfit=best_misfit,
